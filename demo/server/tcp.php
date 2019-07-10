@@ -13,7 +13,7 @@ $serv = new swoole_server("127.0.0.1", 9501);
  * 设置基本参数
  */
 $serv->set([
-    'worker_num' => 8, //worker进程数 cpu 1-4
+    'worker_num' => 4, //worker进程数 cpu 1-4
     'max_request' => 10000,
 ]);
 
