@@ -17,6 +17,19 @@ $http->set(
 
 $http->on('request', function($request, $response) {
 //    $request->get == $_GET
+    $content = [
+        'data' => date("Ymd H:i:s"),
+        'get:' => $request->get,
+        'post:' => $request->post,
+        'header:' => $request->header,
+    ];
+
+    $filename = __DIR__ . "/access.log";
+
+    Swoole\Coroutine::create(function () use ($filename, $content) {
+        Swoole\Coroutine::writeFile($filename, json_encode($content).PHP_EOL, FILE_APPEND);
+    });
+
     $response->cookie("geng", "xssss", time()+1800);
     $response->end("sss".json_encode($request->get));
 });
